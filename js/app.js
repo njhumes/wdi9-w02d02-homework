@@ -55,53 +55,74 @@ let deck = [
         damage: 40
     }
 ]
+//let playersCards = {[]};
 let playersCards = [];
 let computersCards = [];
-let updatedDeck = [];
-let playerPoints = 0;
-let computerPoints = 0;
+
+
+
+let updatedDeck = deck;
+// let playerPoints = 0;
+// let computerPoints = 0;
 let playerRoundWins = 0;
 let computerRoundWins = 0;
 
 function dealCards(){
+    // put the cards in an object for both the player and the computer
     for(let i = 0; i < 3; i++){
-        let randomPlayersCard = deck[Math.floor(Math.random() * 18)];
+        let randomPlayersCard = updatedDeck[Math.floor(Math.random() * 18)];
         playersCards.push(randomPlayersCard);
-       // deck.splice(randomPlayersCard, 1);
-        let randomComputersCard = deck[Math.floor(Math.random() * 18)];
+       // updatedDeck = deck.splice(randomPlayersCard, 1);
+        let randomComputersCard = updatedDeck[Math.floor(Math.random() * 18)];
         computersCards.push(randomComputersCard);
-       // deck.splice(randomComputersCard, 1);
+        //updatedDeck = deck.splice(randomComputersCard, 1);
     }
+    //console.log(updatedDeck);
 }
-dealCards();
-console.log(playersCards);
-console.log(computersCards);
-console.log(deck);
-
+let round = 1;
 function battle() {
-    for(let i = 0; i < playersCards.length; i++){
-        console.log(` ${playersCards[i].name} ${playersCards[i].damage} vs. ${computersCards[i].name} ${computersCards[i].damage}`)
-        if(playersCards[i].damage > computersCards[i].damage){
-            console.log(`Player 1 wins the point!`);
-            playerPoints += 1;
+    // write a for loop that will loop the round and deal new cards each round
+    //while()
+    while (playerRoundWins < 3 && computerRoundWins < 3){
+   // for(let r = 1; r < 4; r++){
+        let playerPoints = 0;
+        let computerPoints = 0;
+    //while(playerRoundWins < 3 && computerRoundWins < 3) {
+        for(let i = 0; i < 3; i++){
+            playersCards = [];
+            computersCards = [];
+            dealCards();
+            console.log(`%c Round ${round}`, `color: red`);
+            console.log(`${playersCards[i].name} ${playersCards[i].damage} vs. ${computersCards[i].name} ${computersCards[i].damage}`);
+            if(playersCards[i].damage > computersCards[i].damage){
+                console.log(`%c Player 1 wins the point!`, `color: blue; font-size: 12px;`);
+                playerPoints += 1;
+                round += 1;
+            }
+            else {
+                console.log(`%c The computer wins the point!`, 'color: blue; font-size: 12px');
+                computerPoints += 1;
+                round += 1;
+            }
+            console.log(`Player: ${playerPoints} \nComputer: ${computerPoints}`);
+        } // end of the for loop
+
+        if (playerPoints > computerPoints){
+            console.log(`%c Player 1 wins the round!`, `color: green; font-size: 18px`);
+            playerRoundWins += 1;
+            console.log(`%c Score:\n Player Victories: ${playerRoundWins} vs Computer Victories: ${computerRoundWins}`, `font-size: 18px;`);
         }
         else {
-            console.log(`The computer wins the point!`)
-            computerPoints += 1;
+            console.log(`%c Computer wins the round!`, `color: green; font-size: 18px`);
+            computerRoundWins += 1;
+            console.log(`%c Score:\n Player Victories: ${playerRoundWins} vs Computer Victories: ${computerRoundWins}`, `font-size: 18px;`);
         }
-        console.log(`Player: ${playerPoints} \nComputer: ${computerPoints}`);
+        if (playerRoundWins == 3 || computerRoundWins ==3){
+            console.log(`Game Over!`)
+        }
     }
-    if (playerPoints > computerPoints){
-        console.log(`Player 1 wins the round!`);
-        playerRoundWins += 1;
-        console.log(`Round Score: ${playerRoundWins} vs ${computerRoundWins}`);
-    }
-    else {
-        console.log(`Computer wins the round!`);
-        computerRoundWins += 1;
-        console.log(`Round Score: Player Wins ${playerRoundWins} vs Computer Wins ${computerRoundWins}`);
-    }
-} 
+  //  }//end of while loop
+} // end of the function
 battle();
 
 
