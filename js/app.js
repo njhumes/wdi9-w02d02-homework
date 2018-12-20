@@ -55,35 +55,35 @@ let deck = [
         damage: 40
     }
 ]
+function dealCards(contestant) {
+    for (let i = 0; i < 3; i++) {
+        let randomCard = deck[Math.floor(Math.random() * 18)];
+        contestant.cards.unshift(randomCard);
+        //console.log(contestant.cards);
+    }
+}
+// make choose card method in each const
 const player1 = {
     cards: [],
     points: 0,
+    chooseCard(cardToPlay) {
+
+    },
+   // chosenCard: this.cards[Math.floor(Math.random() * 3)]
 }
+
+// dealCards(player1);
+// console.log(player1.randomCard);
+
 const cpu = {
     cards: [],
     points: 0,
 }
-function dealCards(contestant){
-    for(let i = 0; i < 3; i++){
-        let randomCard = deck[Math.floor(Math.random() * 18)];
-        contestant.cards.unshift(randomCard);
-     //   deck.splice(randomComputersCard, 1);
-       // let randomComputersCard = deck[Math.floor(Math.random() * (18))];
-        //computersCards.push(randomCard);
-     //   deck.splice(randomComputersCard, 1);
-    }
-}
-// dealCards(player1);
-// dealCards(cpu);
-// console.log(player1);
-// console.log(cpu);
-
 
 
 let round = 1;
 function battle() {
-   while (player1.points < 5 && cpu.points < 5){  // change this~~~
-       // for(let i = 0; i < 5; i++){  // might not need a loop - update until deck runs out
+   while (player1.points < 5 && cpu.points < 5){  
             dealCards(player1);
             dealCards(cpu);
             console.log(`%c Round ${round}`, `color: red`);
