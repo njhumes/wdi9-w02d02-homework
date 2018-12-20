@@ -55,74 +55,63 @@ let deck = [
         damage: 40
     }
 ]
-//let playersCards = {[]};
-let playersCards = [];
-let computersCards = [];
-
-
-
-let updatedDeck = deck;
-// let playerPoints = 0;
-// let computerPoints = 0;
-let playerRoundWins = 0;
-let computerRoundWins = 0;
-
-function dealCards(){
-    // put the cards in an object for both the player and the computer
-    for(let i = 0; i < 3; i++){
-        let randomPlayersCard = updatedDeck[Math.floor(Math.random() * 18)];
-        playersCards.push(randomPlayersCard);
-       // updatedDeck = deck.splice(randomPlayersCard, 1);
-        let randomComputersCard = updatedDeck[Math.floor(Math.random() * 18)];
-        computersCards.push(randomComputersCard);
-        //updatedDeck = deck.splice(randomComputersCard, 1);
-    }
-    //console.log(updatedDeck);
+const player1 = {
+    cards: [],
+    points: 0,
 }
+const cpu = {
+    cards: [],
+    points: 0,
+}
+function dealCards(contestant){
+    for(let i = 0; i < 3; i++){
+        let randomCard = deck[Math.floor(Math.random() * 18)];
+        contestant.cards.unshift(randomCard);
+     //   deck.splice(randomComputersCard, 1);
+       // let randomComputersCard = deck[Math.floor(Math.random() * (18))];
+        //computersCards.push(randomCard);
+     //   deck.splice(randomComputersCard, 1);
+    }
+}
+// dealCards(player1);
+// dealCards(cpu);
+// console.log(player1);
+// console.log(cpu);
+
+
+
 let round = 1;
 function battle() {
-    // write a for loop that will loop the round and deal new cards each round
-    //while()
-    while (playerRoundWins < 3 && computerRoundWins < 3){
-   // for(let r = 1; r < 4; r++){
-        let playerPoints = 0;
-        let computerPoints = 0;
-    //while(playerRoundWins < 3 && computerRoundWins < 3) {
-        for(let i = 0; i < 3; i++){
-            playersCards = [];
-            computersCards = [];
-            dealCards();
+   while (player1.points < 5 && cpu.points < 5){  // change this~~~
+       // for(let i = 0; i < 5; i++){  // might not need a loop - update until deck runs out
+            dealCards(player1);
+            dealCards(cpu);
             console.log(`%c Round ${round}`, `color: red`);
-            console.log(`${playersCards[i].name} ${playersCards[i].damage} vs. ${computersCards[i].name} ${computersCards[i].damage}`);
-            if(playersCards[i].damage > computersCards[i].damage){
+            console.log(`${player1.cards[0].name} ${player1.cards[0].damage} vs. ${cpu.cards[0].name} ${cpu.cards[0].damage}`);
+            if(player1.cards[0].damage > cpu.cards[0].damage){
                 console.log(`%c Player 1 wins the point!`, `color: blue; font-size: 12px;`);
-                playerPoints += 1;
+                player1.points += 1;
+                round += 1;
+            }
+            else if (cpu.cards[0].damage > player1.cards[0].damage){
+                console.log(`%c The computer wins the point!`, 'color: blue; font-size: 12px');
+                cpu.points += 1;
                 round += 1;
             }
             else {
-                console.log(`%c The computer wins the point!`, 'color: blue; font-size: 12px');
-                computerPoints += 1;
+                console.log(`%c Tie, no points awarded`, `color: blue; font-size: 12px`);
                 round += 1;
             }
-            console.log(`Player: ${playerPoints} \nComputer: ${computerPoints}`);
-        } // end of the for loop
+            console.log(`%c Player: ${player1.points} Computer: ${cpu.points}`, `color: green; font-size: 12px;`);
 
-        if (playerPoints > computerPoints){
-            console.log(`%c Player 1 wins the round!`, `color: green; font-size: 18px`);
-            playerRoundWins += 1;
-            console.log(`%c Score:\n Player Victories: ${playerRoundWins} vs Computer Victories: ${computerRoundWins}`, `font-size: 18px;`);
+        } // end of the while loop
+        if(player1.points == 5){
+            console.log(`%c Player 1 Wins!`, `color: orange; font-size: 20px;`)
         }
-        else {
-            console.log(`%c Computer wins the round!`, `color: green; font-size: 18px`);
-            computerRoundWins += 1;
-            console.log(`%c Score:\n Player Victories: ${playerRoundWins} vs Computer Victories: ${computerRoundWins}`, `font-size: 18px;`);
+        else if(cpu.points == 5){
+            console.log(`%c Computer Wins!`, `color: orange; font-size: 20px;`)
         }
-        if (playerRoundWins == 3 || computerRoundWins ==3){
-            console.log(`Game Over!`)
-        }
-    }
-  //  }//end of while loop
-} // end of the function
+    }//end of function
 battle();
 
 
@@ -137,31 +126,3 @@ battle();
 
 
 
-
-
-
-
-
-
-
-
-
-//console.log(computersCards);
-// let randomCard;
-// for(let i = 0; i < 3; i++){
-//     randomCard = deck[Math.floor(Math.random() * 20)];
-//     deck[i] -= randomCard;
-// }
-// class CardsInHand {
-//     constructor(card1, card2, card3){
-//         this.card1 = card1;
-//         this.card2 = card2;
-//         this.card3 = card3;
-//     }
-//     chooseCard(chosen1){
-//         console.log(`They play their ${this.chosen1} card`)
-//         //chosen1 will be the card the player or cpu selects
-//     }
-// }
-// let playersCards = new CardsInHand(randomCard, randomCard, randomCard);
-// console.log(playersCards);
