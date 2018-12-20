@@ -58,19 +58,89 @@ let deck = [
 let playersCards = [];
 let computersCards = [];
 let updatedDeck = [];
+let playerPoints = 0;
+let computerPoints = 0;
+let playerRoundWins = 0;
+let computerRoundWins = 0;
 
 function dealCards(){
-    for(let i = 1; i < 4; i++){
-        let randomPlayersCard = deck[Math.floor(Math.random() * 20)];
+    for(let i = 0; i < 3; i++){
+        let randomPlayersCard = deck[Math.floor(Math.random() * 18)];
         playersCards.push(randomPlayersCard);
-        let randomComputersCard = deck[Math.floor(Math.random() * 20)];
+       // deck.splice(randomPlayersCard, 1);
+        let randomComputersCard = deck[Math.floor(Math.random() * 18)];
         computersCards.push(randomComputersCard);
+       // deck.splice(randomComputersCard, 1);
     }
 }
-
-// for (let j = 0; j < 3; j++) {
-//     let randomCard = deck[Math.floor(Math.random() * 20)];
-// }
 dealCards();
 console.log(playersCards);
 console.log(computersCards);
+console.log(deck);
+
+function battle() {
+    for(let i = 0; i < playersCards.length; i++){
+        console.log(` ${playersCards[i].name} ${playersCards[i].damage} vs. ${computersCards[i].name} ${computersCards[i].damage}`)
+        if(playersCards[i].damage > computersCards[i].damage){
+            console.log(`Player 1 wins the point!`);
+            playerPoints += 1;
+        }
+        else {
+            console.log(`The computer wins the point!`)
+            computerPoints += 1;
+        }
+        console.log(`Player: ${playerPoints} \nComputer: ${computerPoints}`);
+    }
+    if (playerPoints > computerPoints){
+        console.log(`Player 1 wins the round!`);
+        playerRoundWins += 1;
+        console.log(`Round Score: ${playerRoundWins} vs ${computerRoundWins}`);
+    }
+    else {
+        console.log(`Computer wins the round!`);
+        computerRoundWins += 1;
+        console.log(`Round Score: Player Wins ${playerRoundWins} vs Computer Wins ${computerRoundWins}`);
+    }
+} 
+battle();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//console.log(computersCards);
+// let randomCard;
+// for(let i = 0; i < 3; i++){
+//     randomCard = deck[Math.floor(Math.random() * 20)];
+//     deck[i] -= randomCard;
+// }
+// class CardsInHand {
+//     constructor(card1, card2, card3){
+//         this.card1 = card1;
+//         this.card2 = card2;
+//         this.card3 = card3;
+//     }
+//     chooseCard(chosen1){
+//         console.log(`They play their ${this.chosen1} card`)
+//         //chosen1 will be the card the player or cpu selects
+//     }
+// }
+// let playersCards = new CardsInHand(randomCard, randomCard, randomCard);
+// console.log(playersCards);
